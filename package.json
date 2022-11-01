@@ -1,0 +1,28 @@
+{
+  "name": "entrevista-tecnica",
+  "version": "1.0.0",
+  "description": "Este es el desarrollo de la entrevista técnica para Cliengo",
+  "main": "app.js",
+  "author": "Gonzalo Buasso",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/app.ts",
+    "build": "tsc -p .",
+    "start": "node build/app.js"
+  },
+  "dependencies": {
+    "axios": "^1.1.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.9",
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20"
+  }
+}
