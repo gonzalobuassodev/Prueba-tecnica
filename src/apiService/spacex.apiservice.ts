@@ -11,9 +11,13 @@ const API_ROCKETS = process.env.API_ROCKETS;
 // función para obtener los launches desde la api desde spacex
 const getLaunches = async (res: Response, flight_number: string) => {
   try {
-    const result = await axios.get(API_LAUNCHES as string, {
-      params: { flight_number },
-    });
+    // const result = await axios.get(API_LAUNCHES as string, {
+    //   params: { flight_number },
+    // });
+    const result = await axios.get(
+      `${API_LAUNCHES}/${flight_number}` as string
+    );
+
     return result.data;
   } catch (error) {
     // Function para manegar errores
@@ -24,10 +28,7 @@ const getLaunches = async (res: Response, flight_number: string) => {
 // función para obtener los Rockets desde la api desde spacex
 const getRockets = async (res: Response, rocket_id: string) => {
   try {
-    const result = await axios.get(API_ROCKETS as string, {
-      params: { rocket_id },
-    });
-
+    const result = await axios.get(`${API_ROCKETS}/${rocket_id}` as string);
     return result.data;
   } catch (error) {
     // Function para manegar errores

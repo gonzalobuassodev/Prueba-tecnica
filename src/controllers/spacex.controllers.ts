@@ -14,30 +14,32 @@ const getItems = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     // Realizo la consulta a la api de spacex para obtener los Launches
-    const resultLaunches: IFlight[] = await getLaunches(res, id);
+    const resultLaunches: IFlight = await getLaunches(res, id);
 
-    if (resultLaunches.length > 0) {
+    if (resultLaunches) {
       // Realizo la consulta a la api de spacex para obtener los Rockets
-      const resultRockets: IRocketResult[] = await getRockets(
+      const resultRockets: IRocketResult = await getRockets(
         res,
-        resultLaunches[0].rocket.rocket_id
+        resultLaunches.rocket.rocket_id
       );
+
+      //   console.log(resultLaunches[0].rocket.rocket_id);
 
       // Genero la respuesta solicitdad para enviar al cliente
       let obj: IFlight = {
-        flight_number: resultLaunches[0].flight_number,
-        mission_name: resultLaunches[0].mission_name,
+        flight_number: resultLaunches.flight_number,
+        mission_name: resultLaunches.mission_name,
         rocket: {
-          rocket_id: resultRockets[0].rocket_id,
-          rocket_name: resultRockets[0].rocket_name,
-          description: resultRockets[0].description,
-          images: resultRockets[0].flickr_images,
+          rocket_id: resultRockets.rocket_id,
+          rocket_name: resultRockets.rocket_id,
+          description: resultRockets.description,
+          images: resultRockets.flickr_images,
         },
         payloads: [
           {
-            payload_id: resultLaunches[0].mission_name,
+            payload_id: resultLaunches.mission_name,
             manufacturer: 'Boing', // DATO NO ENCONTRADO EN LA RESPUESTA DEL API
-            type: resultRockets[0].rocket_type,
+            type: resultRockets.rocket_type,
           },
         ],
       };
@@ -48,7 +50,8 @@ const getItems = async (req: Request, res: Response) => {
     }
   } catch (error) {
     // Function para manegar errores
-    handleError(res, 'ERROR GET ITEMS');
+    console.log(error);
+    // handleError(res, 'ERROR GET ITEMS');
   }
 };
 
