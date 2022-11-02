@@ -1,12 +1,6 @@
 import { Request, Response } from 'express';
-import { access } from 'fs';
 import { getLaunches, getRockets } from '../apiService/spacex.apiservice';
-import { RequestExt } from '../interfaces/req.interface';
-import {
-  IFlight,
-  IRocket,
-  IRocketResult,
-} from '../interfaces/spacex.interface';
+import { IFlight, IRocketResult } from '../interfaces/spacex.interface';
 import { handleError } from '../utils/error.handle';
 
 const getItems = async (req: Request, res: Response) => {
@@ -45,16 +39,20 @@ const getItems = async (req: Request, res: Response) => {
         };
 
         res.json(obj);
+        return;
       } else {
-        res.json({ error: 'Flight not found' });
+        res.status(404);
+        res.send({ error: 'Flight not found' });
+        return;
       }
     } else {
       res.send({ error: 'Flight not found' });
+      return;
     }
   } catch (error) {
     // Function para manegar errores
-    console.log(error);
-    // handleError(res, 'ERROR GET ITEMS');
+    // console.log(error);
+    handleError(res, 'ERROR GET ITEMS');
   }
 };
 
