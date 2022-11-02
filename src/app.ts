@@ -16,9 +16,4 @@ app.use(express.urlencoded({ extended: true }));
 //Rutas del projecto
 app.use(SpaceXRouter);
 
-const PORT = process.env.PORT || 4000;
-
-// arranco el servidor
-app.listen(PORT, () => {
-  console.log(`Server Listening on port ${PORT}`);
-});
+export default app;
