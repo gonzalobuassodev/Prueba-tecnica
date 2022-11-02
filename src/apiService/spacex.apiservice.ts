@@ -11,12 +11,12 @@ const API_ROCKETS = process.env.API_ROCKETS;
 // función para obtener los launches desde la api desde spacex
 const getLaunches = async (res: Response, flight_number: string) => {
   try {
-    const result = await axios.get(API_LAUNCHES as string, {
-      params: { flight_number },
-    });
-    // const result = await axios.get(
-    //   `${API_LAUNCHES}/${flight_number}` as string
-    // );
+    // const result = await axios.get(API_LAUNCHES as string, {
+    //   params: { flight_number },
+    // });
+    const result = await axios.get(
+      `${API_LAUNCHES}/${flight_number}` as string
+    );
     // console.log(result.data[0].rocket.rocket_id);
 
     return result.data;

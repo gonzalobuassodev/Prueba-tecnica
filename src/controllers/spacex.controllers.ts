@@ -16,19 +16,19 @@ const getItems = async (req: Request, res: Response) => {
 
     if (id) {
       // Realizo la consulta a la api de spacex para obtener los Launches
-      const resultLaunches: IFlight[] = await getLaunches(res, id);
+      const resultLaunches: IFlight = await getLaunches(res, id);
 
-      if (resultLaunches.length > 0) {
+      if (resultLaunches) {
         // Realizo la consulta a la api de spacex para obtener los Rockets
         const resultRockets: IRocketResult = await getRockets(
           res,
-          resultLaunches[0].rocket.rocket_id
+          resultLaunches.rocket.rocket_id
         );
 
         //   Genero la respuesta solicitdad para enviar al cliente
         let obj: IFlight = {
-          flight_number: resultLaunches[0].flight_number,
-          mission_name: resultLaunches[0].mission_name,
+          flight_number: resultLaunches.flight_number,
+          mission_name: resultLaunches.mission_name,
           rocket: {
             rocket_id: resultRockets.rocket_id,
             rocket_name: resultRockets.rocket_name,
@@ -37,7 +37,7 @@ const getItems = async (req: Request, res: Response) => {
           },
           payloads: [
             {
-              payload_id: resultLaunches[0].mission_name,
+              payload_id: resultLaunches.mission_name,
               manufacturer: 'Boeing', // DATO NO ENCONTRADO EN LA RESPUESTA DEL API
               type: resultRockets.rocket_type,
             },
